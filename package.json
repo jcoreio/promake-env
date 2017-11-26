@@ -81,7 +81,7 @@
     "nyc": "^10.1.2",
     "promake": "^1.0.0",
     "rimraf": "^2.6.0",
-    "semantic-release": "^6.3.6",
+    "semantic-release": "^8.2.0",
     "validate-commit-msg": "^2.11.1",
     "webpack": "^3.8.1"
   },
