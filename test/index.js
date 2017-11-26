@@ -1,7 +1,40 @@
-import '../src/index'
+import {exec} from 'child-process-async'
+import {expect} from 'chai'
+import fs from 'fs'
+import path from 'path'
+import promisify from 'es6-promisify'
 
-describe('test setup', () => {
-  it('works', () => {
 
+async function getMTime(file: string): Promise<number> {
+  return (await promisify(fs.stat)(file)).mtime.getTime()
+}
+
+const cwd = path.resolve(__dirname, 'integration')
+const buildDir = path.resolve(cwd, 'build')
+const serverFile = path.join(buildDir, 'server', 'index.js')
+const clientFile = path.join(buildDir, 'assets', 'client.bundle.js')
+
+describe('envRule', function () {
+  this.timeout(15 * 60000)
+
+  it('works', async function () {
+    await exec(`babel-node promake clean server client`, {cwd})
+
+    const firstBuildTime = await getMTime(buildDir)
+    const firstServerTime = await getMTime(serverFile)
+    const firstClientTime = await getMTime(clientFile)
+
+    await exec(`babel-node promake server client`, {cwd})
+    expect(await getMTime(buildDir)).to.equal(firstBuildTime)
+
+    await exec(`babel-node promake server client`, {cwd, env: {...process.env, FOO: 1}})
+    const secondServerTime = await getMTime(serverFile)
+    expect(secondServerTime).to.be.greaterThan(firstServerTime)
+    expect(await getMTime(clientFile)).to.equal(firstClientTime)
+
+    await exec(`babel-node promake server client`, {cwd, env: {...process.env, FOO: 1, QUX: 1}})
+    const secondClientTime = await getMTime(clientFile)
+    expect(secondClientTime).to.be.greaterThan(firstClientTime)
+    expect(await getMTime(serverFile)).to.equal(secondServerTime)
   })
 })

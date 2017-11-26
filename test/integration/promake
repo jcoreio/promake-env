@@ -1,0 +1,51 @@
+#!/usr/bin/env babel-node
+// @flow
+
+const Promake = require('promake')
+const glob = require('glob').sync
+const fs = require('fs-extra')
+
+const serverEnv = 'build/.serverEnv'
+const serverSourceFiles = glob('src/server/**/*.js')
+const serverBuildFiles = serverSourceFiles.map(file => file.replace(/^src/, 'build'))
+const serverPrerequistes = [...serverSourceFiles, serverEnv, '.babelrc', ...glob('src/server/**/.babelrc')]
+
+const universalEnv = 'build/.universalEnv'
+const universalSourceFiles = glob('src/universal/**/*.js')
+const universalBuildFiles = universalSourceFiles.map(file => file.replace(/^src/, 'build'))
+const universalPrerequistes = [...universalSourceFiles, universalEnv, '.babelrc', ...glob('src/universal/**/.babelrc')]
+
+const clientEnv = 'build/.clientEnv'
+const clientPrerequisites = [
+  ...universalSourceFiles,
+  ...glob('src/client/**/*.js'),
+  ...glob('src/client/**/*.css'),
+  clientEnv,
+  '.babelrc',
+  ...glob('src/client/**/.babelrc'),
+]
+const clientBuildFiles = [
+  'build/assets/client.bundle.js',
+]
+
+const {rule, task, cli, exec} = new Promake()
+const envRule = require('../../src').envRule(rule)
+
+envRule(serverEnv, ['FOO', 'BAR'])
+envRule(universalEnv, ['BAR', 'BAZ'])
+envRule(clientEnv, ['QUX'])
+
+rule(serverBuildFiles, serverPrerequistes, () => exec('babel src/server/ --out-dir build/server'))
+rule(universalBuildFiles, universalPrerequistes, () => exec('babel src/universal/ --out-dir build/universal'))
+rule(clientBuildFiles, clientPrerequisites, async () => {
+  await fs.mkdirs('build')
+  await exec('webpack --progress --colors')
+})
+
+task('server', [...serverBuildFiles, ...universalBuildFiles])
+task('client', clientBuildFiles)
+
+task('clean', () => fs.remove('build'))
+
+cli()
+
