@@ -9,10 +9,16 @@ const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 const mkdirp = promisify(require('mkdirp'))
 
-function envRuleRecipe(target: string, vars: Array<string>): () => Promise<any> {
+type Options = {
+  getEnv?: () => Promise<{[name: string]: string}>,
+}
+
+function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): () => Promise<any> {
+  const getEnv = options.getEnv || (async () => process.env)
   return async function updateEnvFile(): Promise<any> {
     const varmap = {}
-    for (let name of [...vars].sort()) varmap[name] = process.env[name]
+    const env = await getEnv()
+    for (let name of [...vars].sort()) varmap[name] = env[name]
     const data = JSON.stringify(varmap, null, 2)
 
     let existingData
@@ -34,6 +40,6 @@ type RuleFn = (target: string, recipe: () => Promise<any>, options?: {runAtLeast
 
 exports.envRule =
   (rule: RuleFn) =>
-    (target: string, vars: Array<string>): Rule =>
-      rule(target, envRuleRecipe(target, vars), {runAtLeastOnce: true})
+    (target: string, vars: Array<string>, options?: Options): Rule =>
+      rule(target, envRuleRecipe(target, vars, options), {runAtLeastOnce: true})
 

@@ -22,7 +22,7 @@ npm install --save promake-env
 
 # API
 
-### `envRule(rule)(file, vars)`
+### `envRule(rule)(file, vars, [options])`
 
 First you create the function for defining environment rules by passing the `rule` function from `Promake`:
 ```js
@@ -32,11 +32,22 @@ const envRule = require('promake-env').envRule(rule)
 ```
 
 Then you call the `envRule` function with `(file, vars)` to define a rule for creating and updating `file`.
-`file` is a path to a file relative to the working directory, and `vars` is an array of environment variable names to
-check for changes.
 
 Make sure to include `file` in the `prerequisites` of any other `rules` you want to rerun when the environment variables
 change.
+
+#### `file`
+
+The name of the file to write the environment variable values to.
+
+#### `vars`
+
+An array of environment variable names to check for changes and write to the file.
+
+#### `options.getEnv` (optional, default: `async () => process.env`)
+
+Allows you to customize which environment variables are used.  Should be a function which returns a promise that will
+resolve to the environment variable hash you wish to use.
 
 # Example
 
