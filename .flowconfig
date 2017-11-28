@@ -1,7 +1,7 @@
 [ignore]
 <PROJECT_ROOT>/lib/.*
 <PROJECT_ROOT>/node_modules/child-process-async/.*
-.*/node_modules/.*/tests?/.*\.json
+<PROJECT_ROOT>/node_modules/.*/tests?/.*\.json
 
 [include]
 ./src
