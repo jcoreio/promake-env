@@ -13,6 +13,7 @@ const cwd = path.resolve(__dirname, 'integration')
 const buildDir = path.resolve(cwd, 'build')
 const serverFile = path.join(buildDir, 'server', 'index.js')
 const clientFile = path.join(buildDir, 'assets', 'client.bundle.js')
+const serverEnvFile = path.join(buildDir, '.serverEnv')
 
 describe('envRule', function () {
   this.timeout(15 * 60000)
@@ -36,5 +37,11 @@ describe('envRule', function () {
     const secondClientTime = await getMTime(clientFile)
     expect(secondClientTime).to.be.greaterThan(firstClientTime)
     expect(await getMTime(serverFile)).to.equal(secondServerTime)
+  })
+  it('replaces invalid JSON', async function () {
+    await promisify(fs.writeFile)(serverEnvFile, 'blah', 'utf8')
+    await exec(`babel-node promake server`, {cwd})
+    const newData = JSON.parse(await promisify(fs.readFile)(serverEnvFile, 'utf8'))
+    expect(newData).to.be.an.instanceOf(Object)
   })
 })

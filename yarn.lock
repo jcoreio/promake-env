@@ -4050,8 +4050,8 @@ progress@^1.1.8:
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
 promake@^1.0.0:
-  version "1.2.3"
-  resolved "https://registry.npmjs.org/promake/-/promake-1.2.3.tgz#dd743ffa16f932b0e8f9aa141b0afaaa1a780eea"
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/promake/-/promake-1.5.0.tgz#3cb27347ee8d6fe2a253fabbee1f3e5612955c5a"
   dependencies:
     chalk "^2.3.0"
     child-process-async "^1.0.1"

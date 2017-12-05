@@ -1,9 +1,12 @@
 // @flow
 
 import type Rule from 'promake/lib/Rule'
+import Promake from 'promake'
 import path from 'path'
 import fs from 'fs'
 import promisify from 'es6-promisify'
+
+const {VERBOSITY} = Promake
 
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
@@ -13,24 +16,40 @@ type Options = {
   getEnv?: () => Promise<{[name: string]: ?string}>,
 }
 
-function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): () => Promise<any> {
+function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): (rule?: Rule) => Promise<any> {
   const getEnv = options.getEnv || (async () => process.env)
-  return async function updateEnvFile(): Promise<any> {
-    const varmap = {}
+  return async function updateEnvFile(rule?: Rule): Promise<any> {
+    const log = rule ? rule.promake.log : () => {}
     const env = await getEnv()
+    const varmap = {}
     for (let name of [...vars].sort()) varmap[name] = env[name]
-    const data = JSON.stringify(varmap, null, 2)
 
-    let existingData
+    let previousEnv
+    let previousEnvError
     try {
-      existingData = await readFile(target, 'utf8')
+      previousEnv = JSON.parse(await readFile(target, 'utf8'))
+      if (!(previousEnv instanceof Object)) throw new Error(`${target} didn't contain a JSON object`)
     } catch (error) {
-      existingData = ''
+      previousEnvError = error
+      log(VERBOSITY.DEFAULT, 'Failed to load previous environment;', error.message)
+      previousEnv = {}
     }
 
-    if (data !== existingData) {
+    const changedVars: Array<string> = []
+    for (let name of new Set([...vars, ...Object.keys(previousEnv)])) {
+      if (env[name] !== previousEnv[name]) changedVars.push(name)
+    }
+
+    if (changedVars.length) {
+      log(VERBOSITY.DEFAULT, 'environment variables have changed:', changedVars[0],
+        changedVars.length > 1 ? `(+${changedVars.length} more)` : ''
+      )
+    }
+    if (changedVars.length || previousEnvError) {
       await mkdirp(path.dirname(target))
-      await writeFile(target, data, 'utf8')
+      await writeFile(target, JSON.stringify(varmap, null, 2), 'utf8')
+    } else {
+      log(VERBOSITY.DEFAULT, 'Nothing to be done for', target)
     }
   }
 }
