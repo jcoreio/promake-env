@@ -10,7 +10,7 @@ const writeFile = promisify(fs.writeFile)
 const mkdirp = promisify(require('mkdirp'))
 
 type Options = {
-  getEnv?: () => Promise<{[name: string]: string}>,
+  getEnv?: () => Promise<{[name: string]: ?string}>,
 }
 
 function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): () => Promise<any> {
