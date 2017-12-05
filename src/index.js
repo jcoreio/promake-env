@@ -19,7 +19,7 @@ type Options = {
 function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): (rule?: Rule) => Promise<any> {
   const getEnv = options.getEnv || (async () => process.env)
   return async function updateEnvFile(rule?: Rule): Promise<any> {
-    const log = rule ? rule.promake.log : () => {}
+    const log = rule ? rule.promake.log : (...args: Array<any>) => {}
     const env = await getEnv()
     const varmap = {}
     for (let name of [...vars].sort()) varmap[name] = env[name]
