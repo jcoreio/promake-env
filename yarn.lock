@@ -1187,10 +1187,6 @@ chalk@^2.1.0, chalk@^2.3.0:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
-child-process-async@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/child-process-async/-/child-process-async-1.0.1.tgz#ee3f0da64421ce6bcd79119003893c53810c4723"
-
 chokidar@^1.4.3, chokidar@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.6.1.tgz#2f4447ab5e96e50fb3d789fd90d4c72e0e4c70c2"
@@ -4049,14 +4045,18 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
-promake@^1.0.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/promake/-/promake-1.5.0.tgz#3cb27347ee8d6fe2a253fabbee1f3e5612955c5a"
+promake@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/promake/-/promake-1.5.1.tgz#9870a7ac0f8640fd0987e041831a12c6bee0cdc7"
   dependencies:
     chalk "^2.3.0"
-    child-process-async "^1.0.1"
     es6-promisify "^5.0.0"
     flow-runtime "^0.16.0"
+    promisify-child-process "^1.0.0"
+
+promisify-child-process@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/promisify-child-process/-/promisify-child-process-1.0.0.tgz#6a006ac1d3e756766a40c654e9cdbace8863f5dd"
 
 proto-list@~1.2.1:
   version "1.2.4"

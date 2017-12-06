@@ -1,4 +1,4 @@
-import {exec} from 'child-process-async'
+import {exec} from 'promisify-child-process'
 import {expect} from 'chai'
 import fs from 'fs'
 import path from 'path'
