@@ -2,6 +2,7 @@
   "env": {
     "node": true
   },
+  "parser": "babel-eslint",
   "extends": [
     "@jedwards1211/eslint-config", "@jedwards1211/eslint-config-flow"
   ]
