@@ -2605,9 +2605,9 @@ flow-copy-source@^1.2.1:
     kefir "^3.7.3"
     yargs "^11.0.0"
 
-flow-runtime@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.npmjs.org/flow-runtime/-/flow-runtime-0.16.0.tgz#6da4aac36b8e26ea2dc80b38395ebecbfcb5a535"
+flow-runtime@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.17.0.tgz#ff57dd22bd7b0682c7beff20c3590f6a4a8286e3"
 
 flow-watch@^1.1.0:
   version "1.1.1"
@@ -4750,19 +4750,24 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.npmjs.org/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
-promake@^1.5.1:
-  version "1.7.1"
-  resolved "https://registry.npmjs.org/promake/-/promake-1.7.1.tgz#8177cf362f9fea7ca5fa0b56c9d117527c2cd87d"
+promake@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/promake/-/promake-3.0.0.tgz#146cfd84cfc32b4e00e2a019bbf06050f6bf09de"
   dependencies:
+    babel-runtime "^6.23.0"
     chalk "^2.3.0"
     es6-promisify "^5.0.0"
-    flow-runtime "^0.16.0"
+    flow-runtime "^0.17.0"
     lodash.padend "^4.6.1"
-    promisify-child-process "^1.0.0"
+    promisify-child-process "^2.0.0"
 
 promisify-child-process@^1.0.0:
   version "1.0.3"
   resolved "https://registry.npmjs.org/promisify-child-process/-/promisify-child-process-1.0.3.tgz#b60e4bf2e0e5a2d83c3dbc521d714a402984ecfd"
+
+promisify-child-process@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/promisify-child-process/-/promisify-child-process-2.0.0.tgz#4fea59fc0799ebdc83adc7ca4657996435be48f9"
 
 proto-list@~1.2.1:
   version "1.2.4"
