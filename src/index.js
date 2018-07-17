@@ -1,6 +1,6 @@
 // @flow
 
-import type Rule from 'promake/lib/Rule'
+import type Rule from 'promake/Rule'
 import Promake from 'promake'
 import path from 'path'
 import fs from 'fs'
@@ -61,4 +61,3 @@ exports.envRule =
   (rule: RuleFn) =>
     (target: string, vars: Array<string>, options?: Options): Rule =>
       rule(target, envRuleRecipe(target, vars, options), {runAtLeastOnce: true})
-
