@@ -80,7 +80,7 @@
     "istanbul": "^0.4.5",
     "mkdirp": "^0.5.1",
     "mocha": "^6.0.0",
-    "nyc": "^11.4.1",
+    "nyc": "^13.0.0",
     "promake": "^3.0.0",
     "promisify-child-process": "^1.0.0",
     "rimraf": "^2.6.0",
