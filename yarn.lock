@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@babel/runtime@^7.1.5":
+  version "7.9.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@commitlint/cli@^6.0.2":
   version "6.0.5"
   resolved "https://registry.npmjs.org/@commitlint/cli/-/cli-6.0.5.tgz#c159c41434d24167c2f52c29e81cffc1959a6d0f"
@@ -5214,13 +5220,15 @@ promake@^3.0.0:
     lodash.padend "^4.6.1"
     promisify-child-process "^2.0.0"
 
-promisify-child-process@^1.0.0:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/promisify-child-process/-/promisify-child-process-1.0.3.tgz#b60e4bf2e0e5a2d83c3dbc521d714a402984ecfd"
-
 promisify-child-process@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/promisify-child-process/-/promisify-child-process-2.0.0.tgz#4fea59fc0799ebdc83adc7ca4657996435be48f9"
+
+promisify-child-process@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/promisify-child-process/-/promisify-child-process-4.0.0.tgz#7e4c97df97c103f203f76924edbbb1d6b1b662b4"
+  dependencies:
+    "@babel/runtime" "^7.1.5"
 
 protocols@^1.1.0, protocols@^1.4.0:
   version "1.4.6"
@@ -5463,6 +5471,10 @@ regenerator-runtime@^0.10.5:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.13.4:
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
 
 regenerator-transform@^0.10.0:
   version "0.10.1"
