@@ -1,7 +1,9 @@
 import Rule from 'promake/Rule'
 
+type Env = { [name: string]: string | undefined }
+
 type Options = {
-  getEnv?: () => Promise<{ [name: string]: string | undefined }>
+  getEnv?: () => Env | Promise<Env>
 }
 
 export function envRuleRecipe(
