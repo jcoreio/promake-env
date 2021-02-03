@@ -73,14 +73,14 @@
     "eslint": "^3.15.0",
     "eslint-plugin-flowtype": "^2.30.0",
     "eslint-watch": "^3.0.0",
-    "flow-bin": "^0.98.0",
+    "flow-bin": "^0.143.1",
     "flow-copy-source": "^1.2.1",
     "flow-watch": "^1.1.0",
     "husky": "^0.14.3",
     "istanbul": "^0.4.5",
     "mocha": "^6.0.0",
     "nyc": "^11.4.1",
-    "promake": "^3.0.0",
+    "promake": "^4.0.0",
     "promisify-child-process": "^1.0.0",
     "rimraf": "^2.6.0",
     "semantic-release": "^15.8.0",
@@ -92,6 +92,6 @@
     "mkdirp": "^0.5.1"
   },
   "peerDependencies": {
-    "promake": "^3.0.0"
+    "promake": "^3.0.0 || ^4.0.0"
   }
 }

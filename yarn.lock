@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@babel/runtime@^7.1.5", "@babel/runtime@^7.12.5":
+  version "7.12.13"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
+  integrity sha512-8+3UMPBrjFa/6TtKi/7sehPKqfAm4g6K+YQjyyFOLUTxzOngcRZTlAVY8sc2CORJYqdHQY8gRPHmn+qo15rCBw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@commitlint/cli@^6.0.2":
   version "6.0.5"
   resolved "https://registry.npmjs.org/@commitlint/cli/-/cli-6.0.5.tgz#c159c41434d24167c2f52c29e81cffc1959a6d0f"
@@ -2791,9 +2798,10 @@ flat@^4.1.0:
   dependencies:
     is-buffer "~2.0.3"
 
-flow-bin@^0.98.0:
-  version "0.98.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.98.0.tgz#3361a03682326a83a5f0a864749f4f7f0d826bce"
+flow-bin@^0.143.1:
+  version "0.143.1"
+  resolved "https://registry.npmjs.org/flow-bin/-/flow-bin-0.143.1.tgz#2ff825dfd85e84531b0ae780842cb1c2a9743cd2"
+  integrity sha512-6S6bgZ/pghBzEUELXkwFH/bsHT+GBMo8ftHDYs0SSJ+1e6NRdFfqxcYhaTvAK8zteSfQLZBIoec6G4WPPp4qQg==
 
 flow-copy-source@^1.2.1:
   version "1.2.2"
@@ -2804,10 +2812,6 @@ flow-copy-source@^1.2.1:
     glob "^7.0.0"
     kefir "^3.7.3"
     yargs "^11.0.0"
-
-flow-runtime@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.npmjs.org/flow-runtime/-/flow-runtime-0.17.0.tgz#ff57dd22bd7b0682c7beff20c3590f6a4a8286e3"
 
 flow-watch@^1.1.0:
   version "1.1.1"
@@ -5203,16 +5207,18 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.npmjs.org/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
-promake@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/promake/-/promake-3.0.1.tgz#5402077f377bac8f34964ca21d39bb0900751e24"
+promake@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/promake/-/promake-4.0.0.tgz#7f42bbcd81f2e7db007a9d64050106c7f6265d6f"
+  integrity sha512-DTUvA7bIym6JSp6XDfUCfHQ23LZvd1NXgy9cRCrjflOE0GHHqlLX8UkbO4ryb+/051vH+GbWmAOF3t/NIGw3LA==
   dependencies:
+    "@babel/runtime" "^7.12.5"
     babel-runtime "^6.23.0"
     chalk "^2.3.0"
     es6-promisify "^5.0.0"
-    flow-runtime "^0.17.0"
     lodash.padend "^4.6.1"
     promisify-child-process "^2.0.0"
+    typed-validators "^4.0.2"
 
 promisify-child-process@^1.0.0:
   version "1.0.3"
@@ -5463,6 +5469,11 @@ regenerator-runtime@^0.10.5:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.13.4:
+  version "0.13.7"
+  resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
+  integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
 
 regenerator-transform@^0.10.0:
   version "0.10.1"
@@ -6344,6 +6355,13 @@ type-check@~0.3.2:
 type-detect@^4.0.0:
   version "4.0.8"
   resolved "https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
+
+typed-validators@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.npmjs.org/typed-validators/-/typed-validators-4.0.2.tgz#658f532cbd065d1056ed9ae6609dc9e924489dcd"
+  integrity sha512-0dh+I9l2XGl1SKHlmvZhZL16LwP6aHoO1GEDVW7orxhzyV6KcWsWdRkex5lT2L00BHPezunFeDN4cpsBbrZbFA==
+  dependencies:
+    "@babel/runtime" "^7.1.5"
 
 typedarray@^0.0.6:
   version "0.0.6"

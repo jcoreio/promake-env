@@ -16,7 +16,7 @@ type Options = {
   getEnv?: () => Promise<{[name: string]: ?string}>,
 }
 
-function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): (rule?: Rule) => Promise<any> {
+export function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): (rule?: Rule) => Promise<any> {
   const getEnv = options.getEnv || (async () => process.env)
   return async function updateEnvFile(rule?: Rule): Promise<any> {
     const log = rule ? rule.promake.log : (...args: Array<any>) => {}
@@ -53,11 +53,10 @@ function envRuleRecipe(target: string, vars: Array<string>, options: Options = {
     }
   }
 }
-exports.envRuleRecipe = envRuleRecipe
 
 type RuleFn = (target: string, recipe: () => Promise<any>, options?: {runAtLeastOnce?: boolean}) => Rule
 
-exports.envRule =
+export const envRule: (rule: RuleFn) => (target: string, vars: Array<string>, options?: Options) => Rule =
   (rule: RuleFn) =>
     (target: string, vars: Array<string>, options?: Options): Rule =>
       rule(target, envRuleRecipe(target, vars, options), {runAtLeastOnce: true})
