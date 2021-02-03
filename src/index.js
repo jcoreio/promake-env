@@ -6,17 +6,21 @@ import path from 'path'
 import fs from 'fs'
 import promisify from 'es6-promisify'
 
-const {VERBOSITY} = Promake
+const { VERBOSITY } = Promake
 
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 const mkdirp = promisify(require('mkdirp'))
 
 type Options = {
-  getEnv?: () => Promise<{[name: string]: ?string}>,
+  getEnv?: () => Promise<{ [name: string]: ?string }>,
 }
 
-export function envRuleRecipe(target: string, vars: Array<string>, options: Options = {}): (rule?: Rule) => Promise<any> {
+export function envRuleRecipe(
+  target: string,
+  vars: Array<string>,
+  options: Options = {}
+): (rule?: Rule) => Promise<any> {
   const getEnv = options.getEnv || (async () => process.env)
   return async function updateEnvFile(rule?: Rule): Promise<any> {
     const log = rule ? rule.promake.log : (...args: Array<any>) => {}
@@ -28,10 +32,15 @@ export function envRuleRecipe(target: string, vars: Array<string>, options: Opti
     let previousEnvError
     try {
       previousEnv = JSON.parse(await readFile(target, 'utf8'))
-      if (!(previousEnv instanceof Object)) throw new Error(`${target} didn't contain a JSON object`)
+      if (!(previousEnv instanceof Object))
+        throw new Error(`${target} didn't contain a JSON object`)
     } catch (error) {
       previousEnvError = error
-      log(VERBOSITY.DEFAULT, 'Failed to load previous environment;', error.message)
+      log(
+        VERBOSITY.DEFAULT,
+        'Failed to load previous environment;',
+        error.message
+      )
       previousEnv = {}
     }
 
@@ -41,7 +50,10 @@ export function envRuleRecipe(target: string, vars: Array<string>, options: Opti
     }
 
     if (changedVars.length) {
-      log(VERBOSITY.DEFAULT, 'environment variables have changed:', changedVars[0],
+      log(
+        VERBOSITY.DEFAULT,
+        'environment variables have changed:',
+        changedVars[0],
         changedVars.length > 1 ? `(+${changedVars.length} more)` : ''
       )
     }
@@ -54,9 +66,15 @@ export function envRuleRecipe(target: string, vars: Array<string>, options: Opti
   }
 }
 
-type RuleFn = (target: string, recipe: () => Promise<any>, options?: {runAtLeastOnce?: boolean}) => Rule
+type RuleFn = (
+  target: string,
+  recipe: () => Promise<any>,
+  options?: { runAtLeastOnce?: boolean }
+) => Rule
 
-export const envRule: (rule: RuleFn) => (target: string, vars: Array<string>, options?: Options) => Rule =
-  (rule: RuleFn) =>
-    (target: string, vars: Array<string>, options?: Options): Rule =>
-      rule(target, envRuleRecipe(target, vars, options), {runAtLeastOnce: true})
+export const envRule: (
+  rule: RuleFn
+) => (target: string, vars: Array<string>, options?: Options) => Rule = (
+  rule: RuleFn
+) => (target: string, vars: Array<string>, options?: Options): Rule =>
+  rule(target, envRuleRecipe(target, vars, options), { runAtLeastOnce: true })

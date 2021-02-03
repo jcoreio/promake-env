@@ -1,15 +1,16 @@
 # promake-env
 
-[![Build Status](https://travis-ci.org/jcoreio/promake-env.svg?branch=master)](https://travis-ci.org/jcoreio/promake-env)
+[![CircleCI](https://circleci.com/gh/jcoreio/promake-env.svg?style=svg)](https://circleci.com/gh/jcoreio/promake-env)
 [![Coverage Status](https://codecov.io/gh/jcoreio/promake-env/branch/master/graph/badge.svg)](https://codecov.io/gh/jcoreio/promake-env)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![npm version](https://badge.fury.io/js/promake-env.svg)](https://badge.fury.io/js/promake-env)
 
 helps ensure promake rules will rerun when environment variables have changed
 
 # How it works
 
-`envRule`s you define write the values of the environment variables you specify to a target file you specify.  However,
+`envRule`s you define write the values of the environment variables you specify to a target file you specify. However,
 it won't modify the file if the current values are equal to the ones in the file (from the last build), so by making the
 target file a prerequisite of another `rule`, you can ensure that rule will rerun whenever any of those environment
 variable values is different from the last build.
@@ -25,9 +26,10 @@ npm install --save promake-env
 ### `envRule(rule)(file, vars, [options])`
 
 First you create the function for defining environment rules by passing the `rule` function from `Promake`:
+
 ```js
 const Promake = require('promake')
-const {rule} = new Promake()
+const { rule } = new Promake()
 const envRule = require('promake-env').envRule(rule)
 ```
 
@@ -46,7 +48,7 @@ An array of environment variable names to check for changes and write to the fil
 
 #### `options.getEnv` (optional, default: `async () => process.env`)
 
-Allows you to customize which environment variables are used.  Should be a function which returns a promise that will
+Allows you to customize which environment variables are used. Should be a function which returns a promise that will
 resolve to the environment variable hash you wish to use.
 
 # Example
@@ -63,10 +65,15 @@ const fs = require('fs-extra')
 
 const buildEnv = 'lib/.buildEnv'
 const srcFiles = glob('src/server/**/*.js')
-const libFiles = srcFiles.map(file => file.replace(/^src/, 'lib'))
-const prerequisites = [...srcFiles, buildEnv, '.babelrc', ...glob('src/**/.babelrc')]
+const libFiles = srcFiles.map((file) => file.replace(/^src/, 'lib'))
+const prerequisites = [
+  ...srcFiles,
+  buildEnv,
+  '.babelrc',
+  ...glob('src/**/.babelrc'),
+]
 
-const {rule, task, cli, exec} = new Promake()
+const { rule, task, cli, exec } = new Promake()
 const envRule = require('promake-env').envRule(rule)
 
 envRule(buildEnv, ['NODE_ENV', 'BABEL_ENV'])
@@ -78,4 +85,3 @@ task('clean', () => fs.remove('build'))
 
 cli()
 ```
-
